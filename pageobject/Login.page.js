@@ -7,21 +7,35 @@ export class LoginPage {
         this.passWord = page.getByPlaceholder('Zadajte svoje heslo')
         this.loginBtn = page. getByRole('button', { name: 'Prihlásiť' })
     }
-    async loginToAgel(username, password) {
-        await this.page.goto('http://172.16.0.57:4201/login');
-        //await this.page.goto('http://172.16.0.171:4201/dashboard')
-        //await this.page.goto('http://172.16.0.57:4200/login');
-        await this.page.waitForLoadState('load');
 
-
+    async loginToAgel(username, password, baseUrl) {
+        await this.page.goto(baseUrl);
+        await this.page.waitForLoadState('load', {timeout:15000});
+        await expect(await this.userName).toBeVisible({timeout:15000})
         await this.userName.fill(username)
         await this.passWord.fill(password);
         await this.loginBtn.click();
         await this.page.waitForTimeout(1000);
-        if (await this.page.getByText('Nesprávne prihlasovacie údaje!').isVisible()) {
+        //await expect(await this.page.getByText('Nesprávne prihlasovacie údaje!')).toBeVisible()
+        /* if (await this.page.getByText('Nesprávne prihlasovacie údaje!').isVisible()) {
             throw new Error('Nesprávne prihlasovacie údaje!');
-            
-        }
+        } */
+        await expect(await this.page.getByText('Dashboard AGEL - local')).toBeVisible({timeout:10000});
+    }
+
+    async loginToAgelInvalid(username, password, baseUrl) {
+        await this.page.goto(baseUrl);
+        await this.page.waitForLoadState('load', {timeout:15000});
+        await expect(await this.userName).toBeVisible({timeout:15000})
+        await this.userName.fill(username)
+        await this.passWord.fill(password);
+        await this.loginBtn.click();
+        await this.page.waitForTimeout(1000);
+        await expect(await this.page.getByText('Nesprávne prihlasovacie údaje!')).toBeVisible()
+        /* if (await this.page.getByText('Nesprávne prihlasovacie údaje!').isVisible()) {
+            throw new Error('Nesprávne prihlasovacie údaje!');
+        } */
+        //await expect(await this.page.getByText('Dashboard AGEL - local')).toBeVisible({timeout:10000});
     }
 }
 

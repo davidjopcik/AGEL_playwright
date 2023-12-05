@@ -39,47 +39,47 @@ export class ObjednavkaPage {
         await this.page.keyboard.insertText('Odd')
         await this.page.keyboard.press('Backspace');
         await this.page.getByRole('option', { name: 'Odd. vnutorného lekárstva I., 100101' }).click();
+        await this.page.waitForTimeout(2000);
         await this.page.getByLabel('Predmet objednávky *').click();
         await this.page.getByLabel('Predmet objednávky *').fill('Test Objednavky');
+        await this.page.waitForTimeout(2000);
         await this.page.locator('#mat-input-19').click();
         await this.page.locator('#mat-input-19').fill('adm');
         await this.page.getByRole('option', { name: 'admin' }).click();
         await this.page.locator('#mat-input-20').click();
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(2000);
         await this.page.locator('#mat-input-20').fill('admin')
         //await this.page.waitForTimeout(1000);
         await this.page.keyboard.press('Backspace');
         await this.page.getByRole('option', { name: 'Admin: Darovacie zmluvy' }).click();
+        await this.page.waitForTimeout(2000);
         await this.page.getByLabel('Tel. č. zadávateľa *').click();
         await this.page.getByLabel('Tel. č. zadávateľa *').fill('12345');
         await this.page.locator('button').filter({ hasText: 'add_circle' }).click();
+        await this.page.waitForTimeout(2000);
         await this.page.getByLabel('Typ položky *').click();
         await this.page.getByRole('option', { name: 'tovar' }).click();
         await this.page.locator('#mat-input-62').click();
         await this.page.locator('#mat-input-62').fill('moni');
         await this.page.getByRole('option', { name: '1715-9002 - Monitor' }).click();
+        await this.page.waitForTimeout(2000);
         await this.page.getByLabel('Jednotková cena *').click();
         await this.page.getByLabel('Jednotková cena *').fill('500');
+        
+        await this.page.getByTestId('dokument_divider').getByText('Dokument').click();
+
+        await this.page.waitForTimeout(3000)
         await expect(await this.page.getByRole('button', { name: 'ODOSLAŤ NA SCHVÁLENIE' })).toBeEnabled();
         await expect(await this.page.getByText('Dáta úspešne uložené')).not.toBeVisible();
-        await this.page.waitForTimeout(2000)
+        await this.page.waitForTimeout(3000)
         await this.page.getByRole('button', { name: 'ODOSLAŤ NA SCHVÁLENIE' }).click();
-        await this.page.waitForTimeout(2000)
-        await this.page.getByRole('button', { name: 'ODOSLAŤ NA SCHVÁLENIE' }).click();
-        await this.page.waitForTimeout(2000);
-        /* let counter = 0;
-        while (await this.page.locator('//span[text()="Pre tento filter nie sú vyhovujúce žiadne úlohy"]').isVisible()) {
+        await this.page.waitForTimeout(3000);
+        if (await this.page.locator('//span[text()="Pre tento filter nie sú vyhovujúce žiadne úlohy"]').isVisible()) {
             await this.page.reload()
             await this.page.waitForTimeout(2000)
             console.log("objednavka sa nevytvorila");
-            counter +=1
-            if (counter == 10) {
-                throw new Error('Objednavka sa nevytvorila')
-            }
-        } */
-        /*  if (await this.page.locator('(//span[../../../../div/ac-panel-item/span/span[text()="Vytvoriť kópiu z objednávky"]])[1]').isHidden({timeout:5000})) {
-             throw new Error('V tomto kroku sa malo zobraziť číslo vygenerovanej objednávky');
-         } */
+        }
+       
         objednavkaCislo = await this.page.locator('(//span[../../../../div/ac-panel-item/span/span[text()="Vytvoriť kópiu z objednávky"]])[1]').innerText({ timeout: 5000 });
         extrahovaneCisloObjednavky = await this.extrahujCisla(objednavkaCislo);
 
@@ -89,7 +89,7 @@ export class ObjednavkaPage {
             await this.page.waitForTimeout(2000)
         }
         await this.page.locator('//span[text()="Prehľad schvaľovania"]').click();
-        await this.page.getByRole('button', { name: 'DOKONČIŤ' }).click();
+        await this.page.getByRole('button', { name: 'DOKONČIŤ' }).click(); 
     }
 
     async zastupenie() {
@@ -168,12 +168,10 @@ export class ObjednavkaPage {
         await this.page.getByRole('button', { name: 'DOKONČIŤ' }).click();
         await expect(await this.page.getByRole('button', { name: 'Objednávka ' + extrahovaneCisloObjednavky + ' Zobraziť objednávku low' })).toBeVisible()
 
-        /* await this.page.locator('#mat-input-2').fill('Objednávka '+extrahovaneCisloObjednavky+'');
-        await this.page.keyboard.press('Enter')
-        await expect(await this.page.locator('//span[@ng-reflect-message="Objednávka '+extrahovaneCisloObjednavky+'"]')).toBeVisible()
-        await expect(await this.page.locator('//span[@class="mat-tooltip-trigger panel-text text-column-ellipsis ng-star-inserted" and (text()="✅ schválená")]')).toBeVisible();
-        await this.page.locator('//span[@ng-reflect-message="Objednávka '+extrahovaneCisloObjednavky+'"]').click()
- */
+    }
+
+    async kontrolaUdajovObj(){
+        
     }
 
 }

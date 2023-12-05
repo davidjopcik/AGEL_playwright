@@ -1,33 +1,31 @@
-export const serverUrl = {
-    EvodDevUrl: "https://evoddev.prosoft.sk",
-    EvodTestUrl: "https://evodtest.ikvc.slovakrail.sk/evod/login.jsp",
-    EvodJAVA17Url: "http://evoddev:8085/evod",
+
+//Mac more space
+export const setViewPortSize2056 = {
+  width: 2056,
+  height: 1129
 }
 
-export const webTitle = {
-        PTTWeb: "PTTWeb",
-        FotenieDok: "PTT Fotenie dokumentov"
+//Home display
+export const setViewPortSize1496 = {
+  width: 1496,
+  height: 967,
 }
 
-export const api = {
-        VDSUrl: "http://localhost:8001/vds/EvodService",
-        turnusy: "http://dockerdev.prosoft.sk:8086/turnusy",
-        fotenie: "http://dockerdev.prosoft.sk:8085",
-        SMTPServer: "SMTP server",
-        verziaCp: "Úspešný (verzia VISv2.28 (lib:1.10.3.0))"
+export const setViewPortSize1728 = {
+  width: 1728,
+  height: 1117,
 }
 
-export const numberOfClick = 20
-export const progressBarRetryTimeout = 240000
-export const downloadRetryTimeout = 240000
-
-export const user_data = {
-    serverUrl: serverUrl.EvodDevUrl,
-    personalNumber: "P089",
-    password: "Aa123456",
-    accessType: "Java17_all2",
-    browserDebug: false
+export const setViewPortSize1920 = {
+  width: 1920,
+  height: 1080,
 }
+
+const agelUrl1 = "http://172.16.0.57:4201/login";
+const agelUrl2 = "http://172.16.0.171:4201/login";
+
+export const setViewPortSize = setViewPortSize1920
+export const baseUrl = agelUrl1
 
 const path = require('path');
 const relativeFilePath = path.join(__dirname, 'images', 'TEST-IMAGE.jpg');

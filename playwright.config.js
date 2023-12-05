@@ -2,17 +2,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
-export default defineConfig({
-
-
-  use: {
-    testIdAttribute: 'id',
-    screenshot: "only-on-failure",
-
-  }
-});
-
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -24,9 +13,16 @@ export default defineConfig({
  */
 module.exports = defineConfig({
   expect: {
-    timeout: 30 * 1000,
+    timeout: 20 * 1000,
   },
-timeout: 600 * 1000,
+  use: {
+    testIdAttribute: 'id',
+    trace: 'on-first-retry',
+    actionTimeout: 20 * 1000,
+    screenshot: "only-on-failure",
+  },
+
+  timeout: 180 * 1000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -42,13 +38,6 @@ timeout: 600 * 1000,
     ['list']
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
 
   /* Configure projects for major browsers */
   projects: [
