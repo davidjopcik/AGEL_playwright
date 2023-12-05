@@ -21,6 +21,11 @@ export const setViewPortSize1920 = {
   height: 1080,
 }
 
+export const setViewPortSize2560 = {
+  width: 2560,
+  height: 1440,
+}
+
 const agelUrl1 = "http://172.16.0.57:4201/login";
 const agelUrl2 = "http://172.16.0.171:4201/login";
 
